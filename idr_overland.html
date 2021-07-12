@@ -1,0 +1,150 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Icewind Dale Travel Calculator</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <!-- Scrolls theme: https://github.com/daodaolee/typora-scrolls -->
+  <link rel="stylesheet" href="./scrolls/scrolls.css">
+</head>
+
+<body>
+    <h3 class="text-center">Icewind Dale Travel Calculator</h3>
+    <hr>
+    <div class="container">
+        <form id="travelCalc">
+            <h4>Unit of Measure</h4>
+            <div class="form-group">
+                <input type="radio" id="miles" name="units" value="mi" checked> 
+                <label for="miles">Miles</label>
+
+                <br>
+
+                <input type="radio" id="klicks" name="units" value="km"> 
+                <label for="klicks">Kilometers</label>
+            </div>
+
+            <br>
+
+            <h4>Distance</h4>
+            <div class="form-group">
+                <label for="start-town">From:</label>
+                <select id="start-town" name="start" class="town-select">
+                    <option value="br">Bremen</option>
+                    <option value="bs">Bryn Shander</option>
+                    <option value="cd">Caer-Dineval</option>
+                    <option value="ck">Caer-Konig</option>
+                    <option value="dh">Dougan's Hole</option>
+                    <option value="eh">Easthaven</option>
+                    <option value="gm">Good Mead</option>
+                    <option value="lw">Lonelywood</option>
+                    <option value="tg">Targos</option>
+                    <option value="tm">Termalaine</option>
+                    <option value="ew">Eastway</option>
+                </select>
+
+                <label for="ending-town">To:</label>
+                <select id="ending-town" name="end" class="town-select">
+                    <option value="br">Bremen</option>
+                    <option value="bs">Bryn Shander</option>
+                    <option value="cd">Caer-Dineval</option>
+                    <option value="ck">Caer-Konig</option>
+                    <option value="dh">Dougan's Hole</option>
+                    <option value="eh">Easthaven</option>
+                    <option value="gm">Good Mead</option>
+                    <option value="lw">Lonelywood</option>
+                    <option value="tg">Targos</option>
+                    <option value="tm">Termalaine</option>
+                    <option value="ew">Eastway</option>
+                </select>
+                <div class="text-muted">*Eastway refers to the intersection</div>
+            </div>
+
+            <br>
+
+            <div class="form-group">
+                <label for="distance">Distance:</label>
+                <input type="text" id="distance" name="distance" size="5">
+                <div class="text-muted">*input manually if traveling overland</div>
+            </div>
+            
+            <br>
+
+            <h4>Terrain Type</h4>
+            <div class="form-group">
+                <input type="radio" id="road" name="terrain" value="road" checked> 
+                <label for="road">Road or Trail</label>
+                
+                <br>                
+                
+                <input type="radio" id="snow" name="terrain" value="snow"> 
+                <label for="snow">Snow or Tundra</label>
+                
+                <br>
+                
+                <input type="radio" id="mountains" name="terrain" value="mnt"> 
+                <label for="mountains">Mountains</label>
+            </div>
+
+            <br>
+
+            <h4>Method of Travel</h4>
+            <div class="form-group">
+                <label for="method">Choose a method:</label>
+                <select id="method" name="method">
+                    <option value="foot">On Foot</option>
+                    <option value="shoe">On Foot (w/snowshoes)</option>
+                    <option value="sled">Dogsled</option>
+                    <option value="beak">Axe Beak</option>
+                </select>
+            </div>
+
+            <br>
+
+            <h4>Travel Pace</h4>
+            <div class="form-group">
+                <input type="radio" id="slow" name="pace" value="slow">
+                <label for="slow">Slow (.5x speed)</label>
+                <div class="text-muted">* allows for Stealth rolls to avoid encounters</div>
+
+                <br>
+                
+                <input type="radio" id="normal" name="pace" value="normal" checked>
+                <label for="normal">Normal (1x speed)</label>
+
+                <br><br>
+                
+                <input type="radio" id="fast" name="pace" value="fast">
+                <label for="fast">Fast</label>
+                <div class="text-muted">* May incur exhaustion, -5 to passive Perception</div>
+            </div>
+
+            <br>
+            <hr>
+        </form>
+
+        <div class="form-group">
+            <label for="speed">Travel Speed (per hour):</label>
+            <input id="speed" type="text" size="5" readonly>
+        </div>
+
+        <br>
+
+        <div class="form-group">
+            <label for="time">Total Travel Time:</label>
+            <input id="time" type="text" size="5" readonly>
+        </div>
+
+        <br>
+    
+        <p class="text-danger"></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    <script src="./overland.js"></script>
+    <script src="./shortestPath.js"></script>
+</body>
+</html>
