@@ -1,4 +1,4 @@
-// Rounded distances based on Justin Alexanders work here:
+// Rounded distances based on Justin Alexander's work here:
 // https://thealexandrian.net/wordpress/45138/roleplaying-games/icewind-dale-travel-times
 const graph = {
     'br': {'tg': 2},
@@ -15,26 +15,10 @@ const graph = {
 }
 
 travelMod = {
-    'foot': {
-        'road': 2,
-        'snow': 0.25,
-        'mnt': 0.125,
-    },
-    'shoe': {
-        'road': 2,
-        'snow': 0.5,
-        'mnt': 0.25,
-    },
-    'sled': {
-        'road': 4,
-        'snow': 1,
-        'mnt': 0.5,
-    },
-    'beak': {
-        'road': 2,
-        'snow': 1,
-        'mnt': 0.5,
-    },
+    'foot': { 'road': 2, 'snow': 0.25, 'mnt': 0.125 },
+    'shoe': { 'road': 2, 'snow': 0.5, 'mnt': 0.25 },
+    'sled': { 'road': 4, 'snow': 1, 'mnt': 0.5 },
+    'beak': { 'road': 2, 'snow': 1, 'mnt': 0.5 },
 }
 
 paceMod = {
@@ -49,6 +33,7 @@ const travelDistance = document.querySelector('#distance');
 const travelSpeed = document.querySelector('#speed');
 const time = document.querySelector('#time');
 
+// save current (raw) value and show value rounded to nearest unit (default 0.5)
 function round(element, distance, unit=0.5) {
     element.setAttribute('data-raw', distance);
     return Math.ceil(parseFloat(distance) / unit) * unit;
@@ -66,10 +51,9 @@ const km2mi = function(km) { return  km * 0.621371; }
 
 const convertDistance = function(distance, convert_miles=false) {
     if (document.querySelector('input[name="units"]:checked').value === "km") {
-        // console.log('conv 2 km');
         return mi2km(distance);
     } else if (convert_miles == true) {
-        // console.log('conv 2  mi');
+        // speed is in miles, so can't assume we need to convert this!
         return km2mi(distance);
     }
 
@@ -80,23 +64,19 @@ const convertDistance = function(distance, convert_miles=false) {
 const setDistance = function(distance) {
     // don't display infinity
     if (distance === "Infinity") { distance = 0 }
-    
     travelDistance.value = round(travelDistance, distance);
 }
 
-// Distance times pace
+// Get speed for current travel pace
 const getPaceSpeed = function(distance) {
     let travelPace = document.querySelector("input[name='pace']:checked").value;
 
+    // no need to convert if it's already normal
     if (travelPace === 'normal') return distance;
 
+    // convert from normal pace to current pace
     let normalSpeed = Object.keys(paceMod['normal']).find(key => paceMod['normal'][key] === distance);
     let paceSpeed = paceMod[travelPace][normalSpeed];
-
-    console.log('distance: ' + distance);
-    console.log('travelPace: ' + travelPace);
-    console.log('normalSpeed: ' + normalSpeed);
-    console.log('paceSpeed: ' + paceSpeed);
 
     return paceSpeed;
 }
@@ -106,25 +86,19 @@ const calculateSpeed = function(distance) {
     let method = document.querySelector('#method').value;
     let terrain = document.querySelector("input[name='terrain']:checked").value;
     
-    console.log("method: " + method);
-    console.log("terrain: " + terrain);
-    
+    // look up speed by method and terrain
     modSpeed = travelMod[method][terrain];
-    
-    console.log("modSpeed: "+ modSpeed);
+    // modify speed by current travel pace
     paceSpeed = getPaceSpeed(modSpeed);
-
-    console.log('pace speed: '+paceSpeed);
 
     return paceSpeed;
 }
 
 const calculateTime = function (distance, rate) {
-    console.log('time distance: ' + distance);
     return distance / rate;
 }
 
-// update distance and speed when units are changed
+// Update distance when unit type is changed
 unitsElem.forEach(function(elem) {
     elem.addEventListener('change', (event) => {
         let rawDistance = raw(travelDistance);
@@ -149,25 +123,17 @@ townSelect.forEach(function(elem) {
     });
 });
 
-travelDistance.addEventListener('onblur', function() {
-    travelDistance.value = round(travelDistance);
-});
-
-travelDistance.addEventListener('onfocus', function() {
-    travelDistance.value = raw(travelDistance);
-})
-
 // calculate speed and time on form update
 var form = document.querySelector('#travelCalc');
 form.addEventListener('change', function() {
-    let distance = raw(travelDistance);
-    console.log('raw travel distance: ' + distance);
+    let rawDistance = raw(travelDistance);
     
-    let rawSpeed = calculateSpeed(distance);
-    let convSpeed = convertDistance(rawSpeed);
-
+    let calcSpeed = calculateSpeed(rawDistance);
+    let calcTime = calculateTime(rawDistance, calcSpeed);
+    
+    let convSpeed = convertDistance(calcSpeed);
+    
     travelSpeed.value = round(travelSpeed, convSpeed, 0.125);
-    
-    time.value = round(time, calculateTime(distance, raw(travelSpeed)));
+    time.value = round(time, calcTime);
 });
 

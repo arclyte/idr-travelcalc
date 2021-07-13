@@ -2,14 +2,17 @@
 
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Icewind Dale: Rime of the Frostmaiden Travel Calculator">
 
-  <title>Icewind Dale Travel Calculator</title>
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <!-- Scrolls theme: https://github.com/daodaolee/typora-scrolls -->
-  <link rel="stylesheet" href="./scrolls/scrolls.css">
+    <title>Icewind Dale Travel Calculator</title>
+    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"></noscript>
+    
+    <link rel="preload" href="./scrolls/scrolls.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="./scrolls/scrolls.css"></noscript>
 </head>
 
 <body>
@@ -26,7 +29,7 @@
                 <input type="radio" id="klicks" name="units" value="km" class="form-check-input"> 
                 <label for="klicks" class="form-check-label">Kilometers</label>
             </div>
-
+            
             <br>
 
             <h4>Distance</h4>
@@ -66,9 +69,9 @@
             </div>
             <div class="text-muted" style="font-size:0.75em;">*Eastway refers to the intersection</div>
             
-
+            
             <br>
-
+            
             <div class="form-group">
                 <label for="distance">Distance:</label>
                 <input type="text" id="distance" name="distance" size="5" class="form-control">
@@ -76,7 +79,7 @@
             </div>
             
             <br>
-
+            
             <h4>Terrain Type</h4>
             <div class="form-check">
                 <input type="radio" id="road" name="terrain" value="road" class="form-check-input" checked> 
@@ -90,9 +93,9 @@
                 <input type="radio" id="mountains" name="terrain" value="mnt" class="form-check-input"> 
                 <label for="mountains" class="form-check-label">Mountains</label>
             </div>
-
+            
             <br>
-
+            
             <h4>Method of Travel</h4>
             <div class="form-group">
                 <label for="method">Choose a method:</label>
@@ -103,9 +106,9 @@
                     <option value="beak">Axe Beak</option>
                 </select>
             </div>
-
+            
             <br>
-
+            
             <h4>Travel Pace</h4>
             <div class="form-check">
                 <input type="radio" id="slow" name="pace" value="slow" class="form-check-input">
@@ -129,19 +132,19 @@
             </div>
             <hr>
         </form>
-
+        
         <div class="form-group">
             <label for="speed">Travel Speed (per hour):</label>
             <input id="speed" type="text" size="5" class="form-control" readonly>
         </div>
-
+        
         <div class="form-group mt-2 mb-2">
             <label for="time" >Total Travel Time:</label>
             <input id="time" type="text" size="5" class="form-control" readonly>
         </div>
-
+        
         <a href="https://github.com/arclyte/idr-travelcalc" class="text-muted">Source</a>
-    
+        
         <p class="text-danger"></p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
